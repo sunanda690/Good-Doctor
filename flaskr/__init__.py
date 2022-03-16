@@ -12,11 +12,34 @@ app.config.from_mapping(
     DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
 )
 
-# a simple page that says hello
-@app.route('/signup.html', methods=('GET', 'POST'))
-def signup():
+@app.route('/', methods=('GET', 'POST'))
+def index():
     if request.method == 'GET':
-        return render_template("signup.html")
+        return render_template("index.html")
+
+
+@app.route('/index.html', methods=('GET', 'POST'))
+def index_html():
+    if request.method == 'GET':
+        return render_template("index.html")
+
+
+@app.route('/patients_dashboard.html', methods=('GET', 'POST'))
+def patients_dashboard():
+    if request.method == 'GET':
+        return render_template("patients_dashboard.html")
+
+
+@app.route('/doctors_dashboard.html', methods=('GET', 'POST'))
+def doctors_dashboard():
+    if request.method == 'GET':
+        return render_template("doctors_dashboard.html")
+
+
+@app.route('/patients_signup.html', methods=('GET', 'POST'))
+def patients_signup():
+    if request.method == 'GET':
+        return render_template("patients_signup.html")
 
     else:
         username = request.form['username']
@@ -24,29 +47,54 @@ def signup():
         password = request.form['password']
 
         insert_signup_info(username, email, password)
-        return render_template("signin.html")
+        return render_template("patients_signin.html")
 
 
-@app.route('/signin.html', methods=('GET', 'POST'))
-def signin():
+@app.route('/doctors_signup.html', methods=('GET', 'POST'))
+def doctors_signup():
     if request.method == 'GET':
-        return render_template("signin.html")
+        return render_template("doctors_signup.html")
+
+    else:
+        username = request.form['username']
+        email = request.form['email']
+        password = request.form['password']
+
+        insert_signup_info(username, email, password)
+        return render_template("doctors_signin.html")
+
+
+@app.route('/patients_signin.html', methods=('GET', 'POST'))
+def patients_signin():
+    if request.method == 'GET':
+        return render_template("patients_signin.html")
 
     else:
         username = request.form['username']
         password = request.form['password']
 
         if search_patient(username, password):
-            return render_template("index.html")
+            return render_template("patients_dashboard.html")
 
         else:
-            return render_template("signin.html")
+            return render_template("patients_signin.html")
 
 
-@app.route('/', methods=('GET', 'POST'))
-def index():
+@app.route('/doctors_signin.html', methods=('GET', 'POST'))
+def doctors_signin():
     if request.method == 'GET':
-        return render_template("index.html")
+        return render_template("doctors_signin.html")
+
+    else:
+        username = request.form['username']
+        password = request.form['password']
+
+        if search_patient(username, password):
+            return render_template("doctors_dashboard.html")
+
+        else:
+            return render_template("patients_signin.html")
+
 
 
 @app.route('/departments.html', methods=('GET', 'POST'))
