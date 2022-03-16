@@ -2,7 +2,7 @@ import os
 
 from flask import Flask
 from flask import render_template, request
-from database import create_patient_table, insert_signup_info, search_patient
+from database import create_patient_table, insert_patient, search_patient
 
 create_patient_table()
 
@@ -46,7 +46,7 @@ def patients_signup():
         email = request.form['email']
         password = request.form['password']
 
-        insert_signup_info(username, email, password)
+        insert_patient(username, email, password)
         return render_template("patients_signin.html")
 
 
@@ -60,7 +60,7 @@ def doctors_signup():
         email = request.form['email']
         password = request.form['password']
 
-        insert_signup_info(username, email, password)
+        insert_doctor(username, email, password)
         return render_template("doctors_signin.html")
 
 
@@ -89,7 +89,7 @@ def doctors_signin():
         username = request.form['username']
         password = request.form['password']
 
-        if search_patient(username, password):
+        if search_doctor(username, password):
             return render_template("doctors_dashboard.html")
 
         else:
