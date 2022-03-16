@@ -2,9 +2,12 @@ import os
 
 from flask import Flask
 from flask import render_template, request
-from database import create_patient_table, insert_patient, search_patient
+from db_creation import * 
+from db_insertion import *
+from db_queries import *
 
 create_patient_table()
+create_doctor_table()
 
 app = Flask(__name__, instance_relative_config=True)
 app.config.from_mapping(
@@ -43,10 +46,16 @@ def patients_signup():
 
     else:
         username = request.form['username']
+        name = request.form['name']
         email = request.form['email']
         password = request.form['password']
+        age = request.form['age']
+        mobile_number = request.form['mobile_number']
+        
+        if search_username(username)==1:
+            return render_template("patients_signup.html")
 
-        insert_patient(username, email, password)
+        insert_patient(username, name, email, password, mobile_number, age)
         return render_template("patients_signin.html")
 
 
@@ -57,10 +66,17 @@ def doctors_signup():
 
     else:
         username = request.form['username']
+        name = request.form['name']
         email = request.form['email']
         password = request.form['password']
+        age = request.form['age']
+        experience = request.form['experience']
+        mobile_number = request.form['mobile_number']
 
-        insert_doctor(username, email, password)
+        if search_username(username)==1:
+            return render_template("doctors_signup.html")
+
+        insert_doctor(username, name, email, password, mobile_number, age, experience)
         return render_template("doctors_signin.html")
 
 
@@ -107,6 +123,13 @@ def departments():
 def about():
     if request.method == 'GET':
         return render_template("about.html")
+
+
+@app.route('/patient_profile.html', methods=('GET', 'POST'))
+def patient_profile():
+    if request.method == 'GET':
+        return render_template("patient_profile.html")
+
 
 @app.route('/contact.html', methods=('GET', 'POST'))
 def contact():
