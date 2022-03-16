@@ -189,19 +189,18 @@ h5, .h5 {
       position: absolute;
       right: 10px; }
   .probootstrap-blog-appointment .probootstrap-form-appointment .form-control::-webkit-input-placeholder {
-    /* Chrome/Opera/Safari */
+ 
     color: rgba(255, 255, 255, 0.7);
     font-size: 16px; }
   .probootstrap-blog-appointment .probootstrap-form-appointment .form-control::-moz-placeholder {
-    /* Firefox 19+ */
+ 
     color: rgba(255, 255, 255, 0.7);
     font-size: 16px; }
   .probootstrap-blog-appointment .probootstrap-form-appointment .form-control:-ms-input-placeholder {
-    /* IE 10+ */
+  
     color: rgba(255, 255, 255, 0.7);
     font-size: 16px; }
   .probootstrap-blog-appointment .probootstrap-form-appointment .form-control:-moz-placeholder {
-    /* Firefox 18- */
     color: rgba(255, 255, 255, 0.7);
     font-size: 16px; }
 
@@ -804,14 +803,14 @@ textarea {
   border-radius: 0;
   -webkit-box-shadow: none;
   box-shadow: none; }
-
+/*
 #probootstrap-loader.show {
   -webkit-transition: opacity .4s ease-out, visibility 0s linear 0s;
   -o-transition: opacity .4s ease-out, visibility 0s linear 0s;
   transition: opacity .4s ease-out, visibility 0s linear 0s;
   visibility: visible;
   opacity: 1; }
-
+*/
 #probootstrap-loader .circular {
   -webkit-animation: loader-rotate 2s linear infinite;
   animation: loader-rotate 2s linear infinite;

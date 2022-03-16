@@ -57,9 +57,9 @@ def insert_signup_info(username, email, password):
         cur.execute(sql, (username, email, password))
         # get the generated id back
         patient_details = cur.fetchone()
-        print(patient_details,"inserted")
         # commit the changes to the database
         conn.commit()
+        print(patient_details,"inserted")
         # close communication with the database
         cur.close()
     except (Exception, psycopg2.DatabaseError) as error:

@@ -42,3 +42,8 @@ def signin():
         else:
             return render_template("signin.html")
 
+
+@app.route('/index', methods=('GET', 'POST'))
+def index():
+    if request.method == 'GET':
+        return render_template("index.html")
