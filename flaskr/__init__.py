@@ -2,7 +2,7 @@ import os
 
 from flask import Flask
 from flask import render_template, request
-from models import create_patient_table, insert_signup_info, search_patient
+from database import create_patient_table, insert_signup_info, search_patient
 
 create_patient_table()
 
@@ -13,7 +13,7 @@ app.config.from_mapping(
 )
 
 # a simple page that says hello
-@app.route('/signup', methods=('GET', 'POST'))
+@app.route('/signup.html', methods=('GET', 'POST'))
 def signup():
     if request.method == 'GET':
         return render_template("signup.html")
@@ -27,7 +27,7 @@ def signup():
         return render_template("signin.html")
 
 
-@app.route('/signin', methods=('GET', 'POST'))
+@app.route('/signin.html', methods=('GET', 'POST'))
 def signin():
     if request.method == 'GET':
         return render_template("signin.html")
@@ -43,7 +43,24 @@ def signin():
             return render_template("signin.html")
 
 
-@app.route('/index', methods=('GET', 'POST'))
+@app.route('/', methods=('GET', 'POST'))
 def index():
     if request.method == 'GET':
         return render_template("index.html")
+
+
+@app.route('/departments.html', methods=('GET', 'POST'))
+def departments():
+    if request.method == 'GET':
+        return render_template("departments.html")
+
+
+@app.route('/about.html', methods=('GET', 'POST'))
+def about():
+    if request.method == 'GET':
+        return render_template("about.html")
+
+@app.route('/contact.html', methods=('GET', 'POST'))
+def contact():
+    if request.method == 'GET':
+        return render_template("contact.html")
