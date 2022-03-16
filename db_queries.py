@@ -157,6 +157,35 @@ def get_history(patient_id):
     return hist    
 
 
+def get_appointments(doctor_id):
+    conn = None
+    appts = []
+    try:
+        params = config()
+        conn = psycopg2.connect(**params)
+        cur = conn.cursor()
+        sql = """
+        SELECT a.appointment_date, a.appointment_time, p.name FROM appointments a 
+        left join patient p on p.patient_id=a.patient_id 
+        where a.doctor_id=%s;
+        """
+
+        cur.execute(sql, (doctor_id, ))
+
+        for i in range(cur.rowcount):
+            appts.append(cur.fetchone())
+        
+        cur.close()
+
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+
+    return appts  
+
+
 if __name__ == '__main__':
     create_patient_table()
     insert_patient("abhw", "abhilash", "abhi.com", "ajsb", "760", "21")
@@ -204,6 +233,8 @@ if __name__ == '__main__':
 
     create_appointments_table()
     insert_appointment('3/15/2011', '12:33', 1, 1)
+    insert_appointment('3/25/2021', '15:33', 1, 2)
+    insert_appointment('3/24/2021', '17:33', 2, 2)
 
     create_history_table()
     insert_history(1,1)
@@ -224,3 +255,5 @@ if __name__ == '__main__':
     insert_payment(1020, 1)
     
     print(get_history(1))
+
+    print(get_appointments(2))
