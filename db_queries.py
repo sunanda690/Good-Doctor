@@ -337,12 +337,14 @@ def get_best_doctor(symptoms_list, pref_time):
         priority['urinary problems'] = 60
         priority['diabetes'] = 50
         priority['skin rashes'] = 40
+        priority['fever'] = 35
         priority['head ache'] = 30
         priority['stomach ache'] = 20
         priority['throat infection'] = 19
         priority['nose infection'] = 17
         priority['ear infection'] = 15
         priority['cold'] = 10
+        priority['tiredness'] = 9
 
         spec = dict()
         spec['chest pain'] = 'cardiology'
