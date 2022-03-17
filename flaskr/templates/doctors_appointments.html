@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Health - Free HTML5 Bootstrap 4 Template by uicookies.com</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Free HTML5 Website Template by uicookies.com" />
+  <meta name="keywords" content="free bootstrap 4, free bootstrap 4 template, free website templates, free html5, free template, free website template, html5, css3, mobile first, responsive" />
+  <meta name="author" content="uicookies.com" />
+  
+  <link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
+
+  <link rel="stylesheet" href="{{ url_for('static',filename='bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='open-iconic-bootstrap.min.css') }}">
+  
+  <link rel="stylesheet" href="{{ url_for('static',filename='owl.carousel.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='owl.theme.default.min.css') }}">
+
+  <link rel="stylesheet" href="{{ url_for('static',filename='icomoon.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='flaticon.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='animate.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='bootstrap-datepicker.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}">
+
+</head>
+<body>
+  
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark probootstrap-navbar-dark">
+    <div class="container">
+      <!-- <a class="navbar-brand" href="index.html">Health</a> -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#probootstrap-nav" aria-controls="probootstrap-nav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="probootstrap-nav">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item"><a href="{{url_for("doctor.doctors_dashboard")}}" class="nav-link pl-0">Home</a></li>
+        </ul>
+        <div class="ml-auto">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a href="{{url_for("doctors_signin")}}" class="nav-link pl-0">Signout</a></li>
+            </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <!-- END nav -->
+
+  <section class="mb-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 mb-5">
+          <h1 class="display-4" style="margin-top:3rem;">Appointments</h1>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section class="probootstrap-services">
+    <div class="container">
+      <div class="row no-gutters">
+        <div class="col-md-3 pb-5 probootstrap-aside-stretch-left probootstrap-inside">
+          <div class="mb-3 pt-5">
+            <h2 class="h6">Appointments</h2>
+            <ul class="list-unstyled probootstrap-light mb-4">
+              <li class="active"><a href="{{url_for("doctor.doctors_appointments", number=1)}}">Appointments 1</a></li>
+              <li><a href="{{url_for("doctor.doctors_appointments", number=2)}}">Appointments 2</a></li>
+              <li><a href="{{url_for("doctor.doctors_appointments", number=3)}}">Appointments 3</a></li>
+              <li><a href="{{url_for("doctor.doctors_appointments", number=4)}}">Appointments 4</a></li>
+              <li><a href="{{url_for("doctor.doctors_appointments", number=5)}}">Appointments 5</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-9 pl-md-5 pb-5 pl-0 probootstrap-inside">
+          <h1 class="mt-4 mb-4">Appointment {{number}}</h1>
+          <h4>Patient Information</h4>
+          <p>Patient Name - Rohit Raj</p>
+          <p>Age - 21</p>
+          <p>Symptons - </p>
+          <div>
+              <ol>
+                  <li>Jyada Daaru pee li</li>
+                  <li>Pet godbad</li>
+              </ol>
+          </div>
+          <br>
+          <p>Date of appointment - 26/03/2020</p>
+          <p>Time slot of appointment - 15:00 - 15:30</p>
+          <div class="row">
+            <button class="btn btn-danger col-md-4">Cancel Appointment</button>
+            <button class="btn btn-success col-md-4" style="margin-left:1rem">Mark Done</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <footer class="probootstrap-footer">
+    <div class="container">
+      <div class="row mb-5">
+        <div class="col-md-3">
+          <h3 class="heading">Latest Blog</h3>
+          <ul class="list-unstyled probootstrap-footer-recent-post">
+            <li>
+              <a href="#"><span class="date">November 15, 2017</span> The practice of medicine is a lot like parenting </a>
+            </li>
+            <li>
+              <a href="#"><span class="date">November 15, 2017</span>Physicians: Want to overcome burnout? Start studying business. </a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <h3 class="heading">Head Office</h3>
+          <p class="mb-5">98 West 21th Street, Suite 721 New York NY 10016</p>
+          <h3 class="heading text-white">Open</h3> 
+          <p>
+            Mon-Fri 7:30-18:00 <br>
+            Sat 7:30-18:00 <br>
+            Sun 7:30-18:00
+          </p>
+        </div>
+        <div class="col-md-3">
+          <h3 class="heading">Quick Links</h3>
+          <ul class="list-unstyled probootstrap-footer-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Department</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <h3 class="heading">Follow us</h3>
+          <ul class="probootstrap-footer-social">
+            <li><a href="#"><span class="icon-twitter"></span></a></li>
+            <li><a href="#"><span class="icon-facebook"></span></a></li>
+            <li><a href="#"><span class="icon-linkedin"></span></a></li>
+          </ul>
+        </div>
+      </div>
+      <!-- END row -->
+      <div class="row probootstrap-copyright">
+        <div class="col-md-12">
+          <p><small>&copy; 2017 <a href="https://uicookies.com/" target="_blank">ProBootstrap Health</a>. All Rights Reserved. Designed &amp; Developed by <a href="https://uicookies.com/" target="_blank">uicookies.com</a> (please don't remove credit, see <a href="https://uicookies.com/license/" target="_blank">license</a>)  <br> Demo Images <a href="https://pexels.com/">Pexels</a> </small></p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- loader -->
+    <div id="probootstrap-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#32609e"/></svg></div>
+  
+
+    <script src="{{ url_for('static',filename='jquery-3.2.1.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='popper.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='jowl.carousel.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='jquery.waypoints.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='bootstrap-datepicker.js') }}"></script>
+    <script src="{{ url_for('static',filename='jquery.animateNumber.min.js') }}"></script>
+  
+    <script src="{{ url_for('static',filename='main.js') }}"></script>
+  
+</body>
+</html>3
