@@ -34,6 +34,7 @@ if __name__ == '__main__':
 
     create_qualified_table()
     insert_qualified(1,1,2020,'iitkgp')
+    insert_qualified(2,1,2021,'MIT')
 
     create_slots_table()
     insert_slot('03:00', '16:30')
@@ -96,3 +97,15 @@ if __name__ == '__main__':
     print(get_appointments(2))
 
     print(get_best_doctor(['stomach ache', 'cold'], '11:30'))
+    print(get_all_symptoms())
+
+    print(get_patient_details('abhi'))
+    print(get_doctor_details('A'))
+
+    print(get_doctor_qualifications('A'))
+
+    print(get_all_specs())
+
+    print((get_all_slots()))
+
+    print(get_doctor_slots(1))

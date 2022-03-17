@@ -29,6 +29,36 @@ def search_patient(username, password):
     return signed_up
 
 
+def get_patient_details(username):
+    conn = None
+    details = dict()
+    try:
+        params = config()
+        conn = psycopg2.connect(**params)
+        cur = conn.cursor()
+        sql = "SELECT * FROM patient where username=%s;"
+        cur.execute(sql, (username,))
+        
+        rv = cur.fetchone()
+        details['patient_id'] = rv[0]
+        details['username'] = rv[1]
+        details['name'] = rv[2]
+        details['email'] = rv[3]
+        details['password'] = rv[4]
+        details['mobile'] = rv[5]
+        details['age'] = rv[6]
+        
+        cur.close()
+
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+
+    return details
+
+
 def get_patient_name(patient_id):
     name = ""
     conn = None
@@ -95,6 +125,69 @@ def search_doctor(username, password):
             conn.close()
 
     return signed_up
+
+
+def get_doctor_details(username):
+    conn = None
+    details = dict()
+    try:
+        params = config()
+        conn = psycopg2.connect(**params)
+        cur = conn.cursor()
+        sql = "SELECT * FROM doctor where username=%s;"
+        cur.execute(sql, (username,))
+        
+        rv = cur.fetchone()
+
+        details['doctor_id'] = rv[0]
+        details['username'] = rv[1]
+        details['name'] = rv[2]
+        details['email'] = rv[3]
+        details['password'] = rv[4]
+        details['mobile'] = rv[5]
+        details['age'] = rv[6]
+        details['experience'] = rv[7]
+        
+        cur.close()
+
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+
+    return details
+
+
+def get_doctor_qualifications(username):
+    conn = None
+    quals = []
+    try:
+        params = config()
+        conn = psycopg2.connect(**params)
+        cur = conn.cursor()
+
+        docid = get_doctor_id(username)
+
+        sql = """
+        SELECT qf.qual_name, qd.procurement_year, qd.institute FROM qualified qd
+        left join qualification qf on qd.qual_id=qf.qual_id
+        where qd.doctor_id=%s;
+        """
+        cur.execute(sql, (docid,))
+        
+        for i in range(cur.rowcount):
+            quals.append(cur.fetchone())
+        
+        cur.close()
+
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+
+    return quals
 
 
 def get_doctor_name(doctor_id):
@@ -171,6 +264,30 @@ def search_username(username):
     return signed_up
 
 
+def get_all_specs():
+    specs = []
+    conn = None
+    try:
+        params = config()
+        conn = psycopg2.connect(**params)
+        cur = conn.cursor()
+        sql = "SELECT speciality FROM specialization;"
+        cur.execute(sql)
+
+        for i in range(cur.rowcount):
+            specs.append(cur.fetchone()[0])      
+        
+        cur.close()
+
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+
+    return specs
+
+
 def get_spec_id(speciality):
     spec_id = -1
     conn = None
@@ -215,6 +332,58 @@ def get_slot_id(slot):
     return slot_id
 
 
+def get_doctor_slots(doctor_id):
+    slots = []
+    conn = None
+    try:
+        params = config()
+        conn = psycopg2.connect(**params)
+        cur = conn.cursor()
+        sql = """
+        SELECT s.start_time, s.end_time FROM has_slots hs
+        left join slots s on hs.slot_id=s.slot_id
+        where hs.doctor_id=%s;
+         """
+        cur.execute(sql, (doctor_id,))
+
+        for i in range(cur.rowcount):
+            slots.append(cur.fetchone())    
+        
+        cur.close()
+
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+
+    return slots
+
+def get_all_slots():
+    slots = []
+    conn = None
+    try:
+        params = config()
+        conn = psycopg2.connect(**params)
+        cur = conn.cursor()
+        sql = "SELECT start_time, end_time FROM slots;"
+        cur.execute(sql)
+        
+        for i in range(cur.rowcount):
+            slots.append(cur.fetchone())     
+        
+        cur.close()
+
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+
+    return slots
+
+
+
 def get_qual_id(qual_name):
     qual_id = -1
     conn = None
@@ -257,6 +426,30 @@ def get_symptom_id(symptom):
             conn.close()
 
     return symp_id
+
+
+def get_all_symptoms():
+    symptoms = []
+    conn = None
+    try:
+        params = config()
+        conn = psycopg2.connect(**params)
+        cur = conn.cursor()
+        sql = "SELECT name FROM symptom;"
+        cur.execute(sql)
+
+        for i in range(cur.rowcount):
+            symptoms.append(cur.fetchone()[0])      
+        
+        cur.close()
+
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+
+    return symptoms
 
 
 def get_history(patient_id):

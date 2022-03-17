@@ -10,17 +10,17 @@
   
   <link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
 
-  <link rel="stylesheet" href="../static/bootstrap.min.css">
-  <link rel="stylesheet" href="../static/open-iconic-bootstrap.min.css">
+  <link rel="stylesheet" href="{{ url_for('static',filename='bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='open-iconic-bootstrap.min.css') }}">
   
-  <link rel="stylesheet" href="../static/owl.carousel.min.css">
-  <link rel="stylesheet" href="../static/owl.theme.default.min.css">
+  <link rel="stylesheet" href="{{ url_for('static',filename='owl.carousel.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='owl.theme.default.min.css') }}">
 
-  <link rel="stylesheet" href="../static/icomoon.css">
-  <link rel="stylesheet" href="../static/flaticon.css">
-  <link rel="stylesheet" href="../static/animate.css">
-  <link rel="stylesheet" href="../static/bootstrap-datepicker.css">
-  <link rel="stylesheet" href="../static/style.css">
+  <link rel="stylesheet" href="{{ url_for('static',filename='icomoon.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='flaticon.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='animate.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='bootstrap-datepicker.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}">
 
 </head>
 <body>
@@ -67,17 +67,39 @@
           <div class="mb-3 pt-5">
             <h2 class="h6">About</h2>
             <ul class="list-unstyled probootstrap-light mb-4">
-              <li class="active"><a href="#">Basic Information</a></li>
-              <li><a href="#">History</a></li>
+              {% if name=="Basics" %}
+                <li class="active"><a href={{url_for("patients_profile", username=username, name="Basics", details=details)}}>Basic Information</a></li>
+              {% else %}
+                <li class=""><a href={{url_for("patients_profile", username=username, name="Basics", details=details)}}>Basic Information</a></li>
+              {% endif %}
+              
+              {% if name=="History" %}
+                <li class="active"><a href={{url_for("patients_profile", username=username, name="History", details=details)}})>History</a></li>
+              {% else %}
+                <li class=""><a href={{url_for("patients_profile", username=username, name="History",details=details)}}>History</a></li>
+              {% endif %}
             </ul>
           </div>
         </div>
+        {% if name=='Basics' %}
         <div class="col-md-9 pl-md-5 pb-5 pl-0 probootstrap-inside">
           <h1 class="mt-4 mb-4">Basic Information</h1>
-          <p>Name - Rohit Raj</p>
-          <p>Age - 21</p>
-          <p>Email Id - rrohit2901@gmail.com</p>
+          <p>Name - {{details['name']}}</p>
+          <p>Age - {{details['age']}}</p>
+          <p>Email Id - {{details['email']}}</p>
         </div>
+        {% else %}
+        <div class="col-md-9 pl-md-5 pb-5 pl-0 probootstrap-inside">
+          <h1 class="mt-4 mb-4">History of appointments</h1>
+          {% for hist in history %}
+          <h5>Appointment#{{loop.index}}</h5>
+          <p>Date of Appointment - {{hist[0]}}</p>
+          <p>Time of Appointment - {{hist[1]}}</p>
+          <p>Name of doctor - {{hist[2]}}</p>
+          <hr>
+          {% endfor %}
+        </div>
+        {% endif %}
       </div>
     </div>
   </section>
@@ -137,15 +159,15 @@
     <div id="probootstrap-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#32609e"/></svg></div>
   
 
-  <script src="../static/jquery-3.2.1.min.js"></script>
-  <script src="../static/popper.min.js"></script>
-  <script src="../static/bootstrap.min.js"></script>
-  <script src="../static/owl.carousel.min.js"></script>
-  <script src="../static/jquery.waypoints.min.js"></script>
-  <script src="../static/bootstrap-datepicker.js"></script>
-  <script src="../static/jquery.animateNumber.min.js"></script>
-
-  <script src="../static/main.js"></script>
+    <script src="{{ url_for('static',filename='jquery-3.2.1.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='popper.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='owl.carousel.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='jquery.waypoints.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='bootstrap-datepicker.js') }}"></script>
+    <script src="{{ url_for('static',filename='jquery.animateNumber.min.js') }}"></script>
+  
+    <script src="{{ url_for('static',filename='main.js') }}"></script>
   
 </body>
 </html>

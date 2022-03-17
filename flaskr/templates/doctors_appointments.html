@@ -34,7 +34,7 @@
 
       <div class="collapse navbar-collapse" id="probootstrap-nav">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item"><a href="{{url_for("doctor.doctors_dashboard")}}" class="nav-link pl-0">Home</a></li>
+          <li class="nav-item"><a href="{{url_for("doctor.doctors_dashboard", username=username)}}" class="nav-link pl-0">Home</a></li>
         </ul>
         <div class="ml-auto">
             <ul class="navbar-nav mr-auto">
@@ -63,11 +63,9 @@
           <div class="mb-3 pt-5">
             <h2 class="h6">Appointments</h2>
             <ul class="list-unstyled probootstrap-light mb-4">
-              <li class="active"><a href="{{url_for("doctor.doctors_appointments", number=1)}}">Appointments 1</a></li>
-              <li><a href="{{url_for("doctor.doctors_appointments", number=2)}}">Appointments 2</a></li>
-              <li><a href="{{url_for("doctor.doctors_appointments", number=3)}}">Appointments 3</a></li>
-              <li><a href="{{url_for("doctor.doctors_appointments", number=4)}}">Appointments 4</a></li>
-              <li><a href="{{url_for("doctor.doctors_appointments", number=5)}}">Appointments 5</a></li>
+              {% for ap in aps %}
+              <li><a href="{{url_for("doctor.doctors_appointments", number=loop.index, username=username)}}">Appointments {{loop.index}}</a></li>
+              {% endfor %}
             </ul>
           </div>
         </div>
@@ -75,18 +73,10 @@
           <h1 class="mt-4 mb-4">Appointment {{number}}</h1>
           <h4>Patient Information</h4>
           <p>Patient Name - Rohit Raj</p>
-          <p>Age - 21</p>
-          <p>Symptons - </p>
-          <div>
-              <ol>
-                  <li>Jyada Daaru pee li</li>
-                  <li>Pet godbad</li>
-              </ol>
-          </div>
-          <br>
+          <p>Age - 26</p>
           <p>Date of appointment - 26/03/2020</p>
-          <p>Time slot of appointment - 15:00 - 15:30</p>
-          <form role="form" method="post" action="{{url_for(doctors_pres), number}}">
+          <p>Time slot of appointment - 16:00 - 16:30</p>
+          <form role="form" method="post" action="{{url_for("doctor.doctors_pres", number=number)}}">
             <div class="row">
               <button class="btn btn-danger col-md-4" name="button#{{number}}" value="cancel">Cancel Appointment</button>
               <button class="btn btn-success col-md-4" style="margin-left:1rem"  name="button#{{number}}" value="done">Mark Done</button>

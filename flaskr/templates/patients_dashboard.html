@@ -35,7 +35,7 @@
       <div class="collapse navbar-collapse" id="probootstrap-nav">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active"><a href="{{url_for("patients_dashboard", username=username)}}" class="nav-link pl-0">Dashboard</a></li>
-          <li class="nav-item"><a href="{{url_for("patients_profile")}}" class="nav-link">Profile</a></li>
+          <li class="nav-item"><a href="{{url_for("patients_profile", username=username, name="Basics", details=details)}}" class="nav-link">Profile</a></li>
         </ul>
         <div class="ml-auto">
           <ul class="navbar-nav mr-auto">
@@ -85,10 +85,10 @@
           <h2 class="h1 text-white">Make an Appointment</h2>
           <form action="{{url_for("patients_dashboard", username=username)}}" class="probootstrap-form-appointment" method="post" role="form">
             <div class="form-group">
-              <input type="date" id="probootstrap-date" class="form-control"  name="time">
+              <input type="text" id="probootstrap-date" class="form-control"  name="date" placeholder="Date of appointment">
             </div>
             <div class="form-group">
-              <input type="time" id="probootstrap-date" class="form-control" name="time">
+              <input type="time" id="probootstrap-time" class="form-control" name="time">
             </div>
             <p>Select symptoms</p>
             <div class="form-group">

@@ -34,8 +34,8 @@
     
           <div class="collapse navbar-collapse" id="probootstrap-nav">
             <ul class="navbar-nav mr-auto">
-              <li class="nav-item active"><a href="doctors_dashboard.html" class="nav-link pl-0">Dashboard</a></li>
-              <li class="nav-item"><a href="{{url_for("doctor.doctors_appointments", number=1)}}" class="nav-link">Appointments</a></li>
+              <li class="nav-item active"><a href="{{url_for("doctor.doctors_dashboard", username=username)}}" class="nav-link pl-0">Dashboard</a></li>
+              <li class="nav-item"><a href="{{url_for("doctor.doctors_appointments", username=username, number=1)}}" class="nav-link">Appointments</a></li>
               <li class="nav-item"><a href="contact.html" class="nav-link">Contact us</a></li>
               <!-- <li class="nav-item"><a href="signin.html" class="nav-link">Signin</a></li> -->
             </ul>
@@ -69,27 +69,27 @@
             <h2 class="h6">About</h2>
             <ul class="list-unstyled probootstrap-light mb-4">
                 {% if name=="Basics" %}
-                    <li class="active"><a href="{{url_for("doctor.doctors_about", name="Basics")}}">Basics</a></li>
+                    <li class="active"><a href="{{url_for("doctor.doctors_about", name="Basics", username=username)}}">Basics</a></li>
                 {% else %}
-                    <li><a href="{{url_for("doctor.doctors_about", name="Basics")}}">Basics</a></li>
+                    <li><a href="{{url_for("doctor.doctors_about", name="Basics", username=username)}}">Basics</a></li>
                 {% endif %}
 
                 {% if name=="Specialization" %}
-                    <li class="active"><a href="{{url_for("doctor.doctors_about", name="Specialization")}}">Specialization</a></li>
+                    <li class="active"><a href="{{url_for("doctor.doctors_about", name="Specialization", username=username)}}">Specialization</a></li>
                 {% else %}
-                    <li><a href="{{url_for("doctor.doctors_about", name="Specialization")}}">Specialization</a></li>
+                    <li><a href="{{url_for("doctor.doctors_about", name="Specialization", username=username)}}">Specialization</a></li>
                 {% endif %}
 
                 {% if name=="Qualifications" %}
-                    <li class="active"><a href="{{url_for("doctor.doctors_about", name="Qualifications")}}">Qualifications</a></li>
+                    <li class="active"><a href="{{url_for("doctor.doctors_about", name="Qualifications", username=username)}}">Qualifications</a></li>
                 {% else %}
-                    <li><a href="{{url_for("doctor.doctors_about", name="Qualifications")}}">Qualifications</a></li>
+                    <li><a href="{{url_for("doctor.doctors_about", name="Qualifications", username=username)}}">Qualifications</a></li>
                 {% endif %}
                 
                 {% if name=="Slots" %}
-                    <li class="active"><a href="{{url_for("doctor.doctors_about", name="Slots")}}">Slots</a></li>
+                    <li class="active"><a href="{{url_for("doctor.doctors_about", name="Slots", username=username)}}">Slots</a></li>
                 {% else %}
-                    <li c><a href="{{url_for("doctor.doctors_about", name="Slots")}}">Slots</a></li>
+                    <li c><a href="{{url_for("doctor.doctors_about", name="Slots", username=username)}}">Slots</a></li>
                 {% endif %}
             </ul>
           </div>
@@ -97,87 +97,38 @@
         {% if name=="Basics" %}
         <div class="col-md-9 pl-md-5 pb-5 pl-0 probootstrap-inside">
           <h1 class="mt-4 mb-4">Basics</h1>
-          <p>Name - Dr. Rohit Raj</p>
-          <p>Age - 25</p>
-          <p>Years of experience - 5</p>
-          <p>Address - KGP ki galiyan</p>
-          <p>Mobile Number - 7478595226</p>
+          <p>Name - {{details["name"]}}</p>
+          <p>Age - {{details['age']}}</p>
+          <p>Years of experience - {{details['experience']}}</p>
+          <p>Mobile Number - {{details['mobile']}}</p>
           <div>
               <p>Qualifications:</p>
               <ul>
-                  <li>Name - MBBS, Year - 2015, Institute - IIT KGP</li>
-                  <li>Name - MD, Year - 2017, Institute - IIT KGP</li>
+                  {% for qual in quals %}
+                  <p>Name - {{qual[0]}}</p>
+                  <p>Year of Procurement - {{qual[1]}}</p>
+                  <p>Institute - {{qual[2]}}</p>
+                  <hr>
+                  {% endfor %}
               </ul>
           </div>
         </div>
         {% elif name=="Specialization" %}
         <div class="col-md-9 pl-md-5 pb-5 pl-0 probootstrap-inside">
             <h1 class="mt-4 mb-4">Specialization</h1>
-            <form method="post" role="form" action="{{ url_for("doctor.doctors_about", name="Specialization")}}">
+            <form method="post" role="form" action="{{ url_for("doctor.doctors_about", name="Specialization",username=username)}}">
                 <div class="row">
+                    {% for spec in specs %}
                     <div class="col-sm-6">
                         <div class="card" style="margin-top:1rem">
                             <div class="input-group-prepend">
                                 <div style="padding-left: 1rem;">
-                                    <input type="checkbox" aria-label="Checkbox for following text input" name="profiles" value="MBBS" checked><span style="margin-left: 0.5rem;">MBBS</span><br\>
+                                    <input type="checkbox" aria-label="Checkbox for following text input" name="profiles" value="{{spec}}" checked><span style="margin-left: 0.5rem;">{{spec}}</span><br\>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6">
-                        <div class="card" style="margin-top:1rem">
-                            <div class="input-group-prepend">
-                                <div style="padding-left: 1rem;">
-                                    <input type="checkbox" aria-label="Checkbox for following text input" name="profiles" value="MBBS" checked><span style="margin-left: 0.5rem;">MBBS</span><br\>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="card" style="margin-top:1rem">
-                            <div class="input-group-prepend">
-                                <div style="padding-left: 1rem;">
-                                    <input type="checkbox" aria-label="Checkbox for following text input" name="profiles" value="MBBS" checked><span style="margin-left: 0.5rem;">MBBS</span><br\>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="card" style="margin-top:1rem">
-                            <div class="input-group-prepend">
-                                <div style="padding-left: 1rem;">
-                                    <input type="checkbox" aria-label="Checkbox for following text input" name="profiles" value="MBBS" checked><span style="margin-left: 0.5rem;">MBBS</span><br\>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="card" style="margin-top:1rem">
-                            <div class="input-group-prepend">
-                                <div style="padding-left: 1rem;">
-                                    <input type="checkbox" aria-label="Checkbox for following text input" name="profiles" value="MBBS" checked><span style="margin-left: 0.5rem;">MBBS</span><br\>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="card" style="margin-top:1rem">
-                            <div class="input-group-prepend">
-                                <div style="padding-left: 1rem;">
-                                    <input type="checkbox" aria-label="Checkbox for following text input" name="profiles" value="MBBS" checked><span style="margin-left: 0.5rem;">MBBS</span><br\>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="card" style="margin-top:1rem">
-                            <div class="input-group-prepend">
-                                <div style="padding-left: 1rem;">
-                                    <input type="checkbox" aria-label="Checkbox for following text input" name="profiles" value="MBBS" checked><span style="margin-left: 0.5rem;">MBBS</span><br\>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
                 <button type="submit" name="Specialization" value="submit" class="btn btn-primary" style="margin-top:1rem">Save changes</button>
             </form>
@@ -185,7 +136,7 @@
           {% elif name=="Qualifications" %}
           <div class="col-md-9 pl-md-5 pb-5 pl-0 probootstrap-inside">
             <h1 class="mt-4 mb-4">Qualifications</h1>
-            <form method="post" role="form" action="{{ url_for("doctor.doctors_about", name="Qualifications")}}">
+            <form method="post" role="form" action="{{ url_for("doctor.doctors_about", name="Qualifications",username=username)}}">
                 <h5>Type of Qualification:</h5>
                 <div class="row">
                     <div class="col-sm-6">
@@ -201,7 +152,7 @@
                         <div class="card" style="margin-top:1rem">
                             <div class="input-group-prepend">
                                 <div style="padding-left: 1rem;">
-                                    <input type="checkbox" aria-label="Checkbox for following text input" name="profiles" value="MBBS"><span style="margin-left: 0.5rem;">MBBS</span><br\>
+                                    <input type="checkbox" aria-label="Checkbox for following text input" name="profiles" value="MD"><span style="margin-left: 0.5rem;">MS</span><br\>
                                 </div>
                             </div>
                         </div>
@@ -210,43 +161,7 @@
                         <div class="card" style="margin-top:1rem">
                             <div class="input-group-prepend">
                                 <div style="padding-left: 1rem;">
-                                    <input type="checkbox" aria-label="Checkbox for following text input" name="profiles" value="MBBS"><span style="margin-left: 0.5rem;">MBBS</span><br\>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="card" style="margin-top:1rem">
-                            <div class="input-group-prepend">
-                                <div style="padding-left: 1rem;">
-                                    <input type="checkbox" aria-label="Checkbox for following text input" name="profiles" value="MBBS"><span style="margin-left: 0.5rem;">MBBS</span><br\>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="card" style="margin-top:1rem">
-                            <div class="input-group-prepend">
-                                <div style="padding-left: 1rem;">
-                                    <input type="checkbox" aria-label="Checkbox for following text input" name="profiles" value="MBBS"><span style="margin-left: 0.5rem;">MBBS</span><br\>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="card" style="margin-top:1rem">
-                            <div class="input-group-prepend">
-                                <div style="padding-left: 1rem;">
-                                    <input type="checkbox" aria-label="Checkbox for following text input" name="profiles" value="MBBS"><span style="margin-left: 0.5rem;">MBBS</span><br\>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="card" style="margin-top:1rem">
-                            <div class="input-group-prepend">
-                                <div style="padding-left: 1rem;">
-                                    <input type="checkbox" aria-label="Checkbox for following text input" name="profiles" value="MBBS"><span style="margin-left: 0.5rem;">MBBS</span><br\>
+                                    <input type="checkbox" aria-label="Checkbox for following text input" name="profiles" value="MD"><span style="margin-left: 0.5rem;">MD</span><br\>
                                 </div>
                             </div>
                         </div>
@@ -269,73 +184,25 @@
           <div class="col-md-9 pl-md-5 pb-5 pl-0 probootstrap-inside">
             <h1 class="mt-4 mb-4">Slots</h1>
             <h3>Select slots when you are free:</h3>
-            <form method="post" role="form" action="{{ url_for("doctor.doctors_about", name="Specialization")}}">
+            <form method="post" role="form" action="{{ url_for("doctor.doctors_about", name="Slots", username=username)}}">
                 <div class="row">
+                    {% for slot in slots %}
                     <div class="col-sm-6">
                         <div class="card" style="margin-top:1rem">
                             <div class="input-group-prepend">
                                 <div style="padding-left: 1rem;">
-                                    <input type="checkbox" aria-label="Checkbox for following text input" name="slots" value="MBBS" checked><span style="margin-left: 0.5rem;">MBBS</span><br\>
+                                    {% if slot in docslots %}
+                                    <input type="checkbox" aria-label="Checkbox for following text input" name="slots" value="{{slot}}" checked><span style="margin-left: 0.5rem;">{{slot[0]}} - {{slot[1]}}</span><br\>
+                                    {% else %}
+                                    <input type="checkbox" aria-label="Checkbox for following text input" name="slots" value="{{slot}}"><span style="margin-left: 0.5rem;">{{slot[0]}} - {{slot[1]}}</span><br\>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6">
-                        <div class="card" style="margin-top:1rem">
-                            <div class="input-group-prepend">
-                                <div style="padding-left: 1rem;">
-                                    <input type="checkbox" aria-label="Checkbox for following text input" name="slots" value="MBBS" checked><span style="margin-left: 0.5rem;">MBBS</span><br\>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="card" style="margin-top:1rem">
-                            <div class="input-group-prepend">
-                                <div style="padding-left: 1rem;">
-                                    <input type="checkbox" aria-label="Checkbox for following text input" name="slots" value="MBBS" checked><span style="margin-left: 0.5rem;">MBBS</span><br\>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="card" style="margin-top:1rem">
-                            <div class="input-group-prepend">
-                                <div style="padding-left: 1rem;">
-                                    <input type="checkbox" aria-label="Checkbox for following text input" name="slots" value="MBBS" checked><span style="margin-left: 0.5rem;">MBBS</span><br\>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="card" style="margin-top:1rem">
-                            <div class="input-group-prepend">
-                                <div style="padding-left: 1rem;">
-                                    <input type="checkbox" aria-label="Checkbox for following text input" name="slots" value="MBBS" checked><span style="margin-left: 0.5rem;">MBBS</span><br\>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="card" style="margin-top:1rem">
-                            <div class="input-group-prepend">
-                                <div style="padding-left: 1rem;">
-                                    <input type="checkbox" aria-label="Checkbox for following text input" name="slots" value="MBBS" checked><span style="margin-left: 0.5rem;">MBBS</span><br\>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="card" style="margin-top:1rem">
-                            <div class="input-group-prepend">
-                                <div style="padding-left: 1rem;">
-                                    <input type="checkbox" aria-label="Checkbox for following text input" name="slots" value="MBBS" checked><span style="margin-left: 0.5rem;">MBBS</span><br\>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
-                <button type="submit" name="Specialization" value="submit" class="btn btn-primary" style="margin-top:1rem">Save changes</button>
+                <button type="submit" name="Slots" value="submit" class="btn btn-primary" style="margin-top:1rem">Save changes</button>
             </form>
           </div>
           {% endif %}

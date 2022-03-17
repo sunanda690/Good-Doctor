@@ -8,8 +8,8 @@ from db_creation import *
 from db_insertion import *
 from db_queries import *
 
-create_patient_table()
-create_doctor_table()
+# create_patient_table()
+# create_doctor_table()
 
 
 app = Flask(__name__, instance_relative_config=True)
@@ -34,12 +34,20 @@ def index_html():
 def patients_dashboard(username):
     if request.method == 'POST':
         appointmentDate = request.form['date']
+        appointmentPrefferedtime = str(request.form['time'])
         symptoms = request.form['symptom']
         
         print("{} {}".format(appointmentDate, symptoms))
 
-    symptoms = ["Fever", "Stomachache", "Headache", "Cough"]
-    return render_template("patients_dashboard.html", symptoms=symptoms)
+        patid = get_patient_id(username)
+        appointment = get_best_doctor(symptoms, appointmentPrefferedtime)
+        docid = appointment[0]
+        endtime = appointment[1][1]
+        starttime = appointment[1][0]
+        insert_appointment(appointmentDate, starttime, patid, docid)
+    symptoms = get_all_symptoms()
+    details = get_patient_details(username)
+    return render_template("patients_dashboard.html", symptoms=symptoms, username=username, details=details)
 
 
 @app.route('/patients_signup.html', methods=('GET', 'POST'))
@@ -59,7 +67,7 @@ def patients_signup():
             return render_template("patients_signup.html")
 
         insert_patient(username, name, email, password, mobile_number, age)
-        return render_template("patients_signin.html")
+        return redirect(url_for("patients_signin"))
 
 
 @app.route('/doctors_signup.html', methods=('GET', 'POST'))
@@ -80,14 +88,16 @@ def doctors_signup():
             return render_template("doctors_signup.html")
 
         insert_doctor(username, name, email, password, mobile_number, age, experience)
-        return render_template("doctors_signin.html")
+        return redirect(url_for("doctors_signin"))
 
-@app.route('/patient_profile.html', methods=('GET', 'POST'))
-def patients_profile():
+@app.route('/patient_profile/<username>/<name>', methods=('GET', 'POST'))
+def patients_profile(username, name):
     if request.method == 'GET':
-        return render_template("patient_profile.html")
+        details = get_patient_details(username)
+        history = get_history(details['patient_id'])
+        return render_template("patient_profile.html",username=username,name=name, details=details, history=history)
 
-@app.route('/patients_signin.html', methods=('GET', 'POST'))
+@app.route('/patients_signin', methods=('GET', 'POST'))
 def patients_signin():
     if request.method == 'GET':
         return render_template("patients_signin.html")
@@ -95,15 +105,16 @@ def patients_signin():
     else:
         username = request.form['username']
         password = request.form['password']
+        
 
         if search_patient(username, password):
-            return render_template("patients_dashboard.html", username=username)
+            return redirect(url_for("patients_dashboard", username=username))
 
         else:
             return render_template("patients_signin.html")
 
 
-@app.route('/doctors_signin.html', methods=('GET', 'POST'))
+@app.route('/doctors_signin', methods=('GET', 'POST'))
 def doctors_signin():
     if request.method == 'GET':
         return render_template("doctors_signin.html")
@@ -111,12 +122,12 @@ def doctors_signin():
     else:
         username = request.form['username']
         password = request.form['password']
-
-        if search_patient(username, password):
-            return redirect(url_for("doctor.doctors_dashboard"))
+        print("{} {}", username, password, search_doctor(username, password))
+        if search_doctor(username, password):
+            return redirect(url_for("doctor.doctors_dashboard", username=username))
 
         else:
-            return render_template("patients_signin.html")
+            return redirect(url_for("doctors_signin"))
 
 
 
