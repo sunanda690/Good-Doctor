@@ -11,6 +11,7 @@ from db_queries import *
 create_patient_table()
 create_doctor_table()
 
+
 app = Flask(__name__, instance_relative_config=True)
 app.config.from_mapping(
     SECRET_KEY='dev',
@@ -29,10 +30,16 @@ def index_html():
         return render_template("index.html")
 
 
-@app.route('/patients_dashboard.html', methods=('GET', 'POST'))
-def patients_dashboard():
-    if request.method == 'GET':
-        return render_template("patients_dashboard.html")
+@app.route('/patients_dashboard/<username>', methods=('GET', 'POST'))
+def patients_dashboard(username):
+    if request.method == 'POST':
+        appointmentDate = request.form['date']
+        symptoms = request.form['symptom']
+        
+        print("{} {}".format(appointmentDate, symptoms))
+
+    symptoms = ["Fever", "Stomachache", "Headache", "Cough"]
+    return render_template("patients_dashboard.html", symptoms=symptoms)
 
 
 @app.route('/patients_signup.html', methods=('GET', 'POST'))
@@ -75,6 +82,10 @@ def doctors_signup():
         insert_doctor(username, name, email, password, mobile_number, age, experience)
         return render_template("doctors_signin.html")
 
+@app.route('/patient_profile.html', methods=('GET', 'POST'))
+def patients_profile():
+    if request.method == 'GET':
+        return render_template("patient_profile.html")
 
 @app.route('/patients_signin.html', methods=('GET', 'POST'))
 def patients_signin():
@@ -86,7 +97,7 @@ def patients_signin():
         password = request.form['password']
 
         if search_patient(username, password):
-            return render_template("patients_dashboard.html")
+            return render_template("patients_dashboard.html", username=username)
 
         else:
             return render_template("patients_signin.html")
@@ -120,11 +131,6 @@ def about():
     if request.method == 'GET':
         return render_template("about.html")
 
-
-@app.route('/patient_profile.html', methods=('GET', 'POST'))
-def patient_profile():
-    if request.method == 'GET':
-        return render_template("patient_profile.html")
 
 
 @app.route('/contact.html', methods=('GET', 'POST'))
