@@ -11,6 +11,7 @@ from db_queries import *
 create_patient_table()
 create_doctor_table()
 
+
 app = Flask(__name__, instance_relative_config=True)
 app.config.from_mapping(
     SECRET_KEY='dev',

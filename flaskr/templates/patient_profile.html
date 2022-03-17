@@ -34,40 +34,17 @@
 
       <div class="collapse navbar-collapse" id="probootstrap-nav">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item"><a href="index.html" class="nav-link pl-0">Home</a></li>
-          <li class="nav-item"><a href="departments.html" class="nav-link">Departments</a></li>
-          <li class="nav-item active"><a href="patient_profile.html" class="nav-link">Profile</a></li>
-          <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+          <li class="nav-item active"><a href="{{url_for("patients_dashboard")}}" class="nav-link pl-0">Dashboard</a></li>
         </ul>
         <div class="ml-auto">
-          <form action="#" method="get" class="probootstrap-search-form mb-sm-0 mb-3">
-            <div class="form-group">
-              <button class="icon submit"><span class="icon-magnifying-glass"></span></button>
-              <input type="text" class="form-control" placeholder="Search">
-            </div>
-          </form>
+          <ul class="navbar-nav mr-auto">
+              <li class="nav-item"><a href="{{url_for("patients_signin")}}" class="nav-link pl-0">Signout</a></li>
+          </ul>
         </div>
       </div>
     </div>
   </nav>
   <!-- END nav -->
-  <header role="banner" class="probootstrap-header py-5">
-    <div class="container">
-      <!-- <div class="row">
-        <div class="col-md-3 mb-4">
-          <a href="index.html" class="mr-auto"> <h1>THE BEST DOCTOR</h1> </a>
-        </div>  
-        <div class="col-md-9">
-          <div class="float-md-right float-none">
-          <div class="probootstrap-contact-phone d-flex align-items-top mb-3 float-left">
-            <span class="icon mr-2"><i class="icon-phone"></i></span>
-            <span class="probootstrap-text"> +900 123 456 7 <small class="d-block"><a href="#" class="arrow-link">Appointment <i class="icon-chevron-right"></i></a></small></span>
-          </div>
-          </div>
-        </div>
-      </div> -->
-    </div>
-  </header>
 
   <section class="mb-5">
     <div class="container">
@@ -90,57 +67,21 @@
           <div class="mb-3 pt-5">
             <h2 class="h6">About</h2>
             <ul class="list-unstyled probootstrap-light mb-4">
-              <li class="active"><a href="#">History</a></li>
-              <li><a href="#">Staffs</a></li>
-              <li><a href="#">Career</a></li>
+              <li class="active"><a href="#">Basic Information</a></li>
+              <li><a href="#">History</a></li>
             </ul>
           </div>
         </div>
         <div class="col-md-9 pl-md-5 pb-5 pl-0 probootstrap-inside">
-          <h1 class="mt-4 mb-4">History</h1>
-          <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-
-          <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-          <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.</p>
-
-          <p>The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn’t listen. She packed her seven versalia, put her initial into the belt and made herself on the way.</p>
-          <p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then she continued her way.</p>
-
-          <p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from its origin would be the word "and" and the Little Blind Text should turn around and return to its own, safe country. </p>
-
-          <p>But nothing the copy said could convince her and so it didn’t take long until a few insidious Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their agency, where they abused her for their.</p>
+          <h1 class="mt-4 mb-4">Basic Information</h1>
+          <p>Name - Rohit Raj</p>
+          <p>Age - 21</p>
+          <p>Email Id - rrohit2901@gmail.com</p>
         </div>
-        
       </div>
     </div>
   </section>
   
-
-  <!-- <section class="probootstrap-subscribe">
-    <div class="container">
-      <div class="row mb-5">
-        <div class="col-md-12">
-          <h2 class="h1 text-white">Subscribe Newsletter</h2>
-          <p class="lead text-white">Far far away, behind the word mountains, far from the countries Vokalia.</p>
-        </div>
-      </div>
-      <form action="#" method="post">
-        <div class="row">
-          <div class="col-md-4">
-            <input type="text" class="form-control" placeholder="Name">    
-          </div>
-          <div class="col-md-4 mb-md-0 mb-3">
-            <input type="text" class="form-control" placeholder="Email">
-          </div>
-          <div class="col-md-4">
-            <input type="submit" value="Subscribe" class="btn btn-primary btn-block">
-          </div>
-        
-        </div>
-      </form>
-    </div>
-  </section> -->
-
   <footer class="probootstrap-footer">
     <div class="container">
       <div class="row mb-5">

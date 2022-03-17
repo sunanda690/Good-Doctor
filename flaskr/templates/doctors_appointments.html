@@ -86,10 +86,12 @@
           <br>
           <p>Date of appointment - 26/03/2020</p>
           <p>Time slot of appointment - 15:00 - 15:30</p>
-          <div class="row">
-            <button class="btn btn-danger col-md-4">Cancel Appointment</button>
-            <button class="btn btn-success col-md-4" style="margin-left:1rem">Mark Done</button>
-          </div>
+          <form role="form" method="post" action="{{url_for(doctors_pres), number}}">
+            <div class="row">
+              <button class="btn btn-danger col-md-4" name="button#{{number}}" value="cancel">Cancel Appointment</button>
+              <button class="btn btn-success col-md-4" style="margin-left:1rem"  name="button#{{number}}" value="done">Mark Done</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
