@@ -5,48 +5,68 @@ from db_queries import *
 
 if __name__ == '__main__':
     create_patient_table()
-    insert_patient("abhw", "abhilash", "abhi.com", "ajsb", "760", "21")
-    insert_patient("ahw", "abhilash", "abhi.com", "ajsb", "760", "21")
-    print(search_patient("ahw", "ajsb"))
+    insert_patient("abhi", "Abhilash Datta", "abhi.com", "abcd", "760", "21")
+    insert_patient("rrohit", "Rohit Raj", "rrohit.com", "wxyz", "727", "21")
+    print(search_patient("rrohit", "wxyz"))
 
     create_doctor_table()
-    insert_doctor("abh", "abhilash", "abhi.com", "ajsb", "7602045111", "21", "3")
-    insert_doctor("abhsad", "abhilash", "abhi.com", "ajsb", "7602045111", "21", "3")
-    print(search_doctor("abhsad", "ajsb"))
+    insert_doctor("A", "Dr. A", "a.com", "a", "7602045111", "21", "3")
+    insert_doctor("B", "Dr. B", "b.com", "b", "7602045111", "21", "3")
+    insert_doctor("C", "Dr. C", "c.com", "c", "7602045111", "21", "3")
+    print(search_doctor("A", "a"))
 
     create_specialization_table()
     insert_specialization("cardio")
+    insert_specialization("gastroenterology")
     insert_specialization("ENT")
     insert_specialization("Eye")
-    print(search_spec_id("ENT"))
+    print(get_spec_id("ENT"))
 
     create_specialized_table()
-    insert_specialized(1,1)
+    insert_specialized(2,1)
+    insert_specialized(2,2)
+    insert_specialized(2,3)
 
     create_qualification_table()
     insert_qualification('MBBS')
     insert_qualification('MS')
-    print(search_qual_id('MS'))
+    print(get_qual_id('MS'))
 
     create_qualified_table()
     insert_qualified(1,1,2020,'iitkgp')
 
     create_slots_table()
     insert_slot('03:00', '16:30')
+    insert_slot('04:00', '17:30')
+    insert_slot('05:00', '18:30')
+    insert_slot('06:00', '19:30')
+    insert_slot('07:00', '20:30')
+    insert_slot('08:00', '21:30')
+
+    insert_slot('12:00', '19:30')
+    insert_slot('13:00', '20:30')
+    insert_slot('14:00', '21:30')
 
     create_has_slots_table()
-    insert_has_slot(1,1)
+    insert_has_slot(get_slot_id(('12:00', '19:30')),get_doctor_id('A'))
+    insert_has_slot(get_slot_id(('13:00', '20:30')),get_doctor_id('B'))
+    insert_has_slot(get_slot_id(('14:00', '21:30')),get_doctor_id('C'))
 
     create_prescription_table()
-    insert_prescription(1,2)
+    insert_prescription(get_patient_id('abhi'),get_doctor_id('A'))
 
     create_symptom_table()
     insert_symptom('cough')
     insert_symptom('cold')
     insert_symptom('congestion')
+    insert_symptom('stomach ache')
+    insert_symptom('head ache')
+    insert_symptom('burns')
 
     create_has_symptom_table()
-    insert_has_symptom(1,2)
+    insert_has_symptom(1,get_symptom_id('stomach ache'))
+    insert_has_symptom(1,get_symptom_id('cold'))
+    insert_has_symptom(1,get_symptom_id('cough'))
 
     create_appointments_table()
     insert_appointment('3/15/2011', '12:33', 1, 1)
@@ -74,3 +94,5 @@ if __name__ == '__main__':
     print(get_history(1))
 
     print(get_appointments(2))
+
+    print(get_best_doctor(['stomach ache', 'cold'], '11:30'))
