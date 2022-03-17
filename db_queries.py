@@ -259,6 +259,29 @@ def get_symptom_id(symptom):
     return symp_id
 
 
+def get_all_symptoms():
+    symptoms = []
+    conn = None
+    try:
+        params = config()
+        conn = psycopg2.connect(**params)
+        cur = conn.cursor()
+        sql = "SELECT name FROM symptom;"
+        cur.execute(sql)
+
+        for i in range(len(cur.rowcount)):
+            symptoms.append(cur.fetchone())      
+        
+        cur.close()
+
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+
+    return symptoms
+
 def get_history(patient_id):
     conn = None
     hist = []
