@@ -1,7 +1,9 @@
 import os
 
 from flask import Flask
-from flask import render_template, request
+from flask import render_template, request, redirect, url_for
+# from database import create_patient_table, insert_signup_info, search_patient
+from . import doctor
 from db_creation import * 
 from db_insertion import *
 from db_queries import *
@@ -14,12 +16,12 @@ app.config.from_mapping(
     SECRET_KEY='dev',
     DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
 )
+app.register_blueprint(doctor.bp)
 
 @app.route('/', methods=('GET', 'POST'))
 def index():
     if request.method == 'GET':
         return render_template("index.html")
-
 
 @app.route('/index.html', methods=('GET', 'POST'))
 def index_html():
@@ -31,12 +33,6 @@ def index_html():
 def patients_dashboard():
     if request.method == 'GET':
         return render_template("patients_dashboard.html")
-
-
-@app.route('/doctors_dashboard.html', methods=('GET', 'POST'))
-def doctors_dashboard():
-    if request.method == 'GET':
-        return render_template("doctors_dashboard.html")
 
 
 @app.route('/patients_signup.html', methods=('GET', 'POST'))
@@ -105,8 +101,8 @@ def doctors_signin():
         username = request.form['username']
         password = request.form['password']
 
-        if search_doctor(username, password):
-            return render_template("doctors_dashboard.html")
+        if search_patient(username, password):
+            return redirect(url_for("doctor.doctors_dashboard"))
 
         else:
             return render_template("patients_signin.html")
