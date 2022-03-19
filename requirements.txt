@@ -1,15 +1,10 @@
-Package          Version
----------------- -------
-click            8.0.4
-Flask            2.0.3
-Flask-SQLAlchemy 2.5.1
-greenlet         1.1.2
-itsdangerous     2.1.1
-Jinja2           3.0.3
-MarkupSafe       2.1.0
-pip              22.0.4
-psycopg2-binary  2.9.3
-setuptools       58.2.0
-SQLAlchemy       1.4.32
-Werkzeug         2.0.3
-wheel            0.37.0
+click==8.0.4
+Flask==2.0.3
+Flask-SQLAlchemy==2.5.1
+greenlet==1.1.2
+itsdangerous==2.1.1
+Jinja2==3.0.3
+MarkupSafe==2.1.0
+psycopg2-binary==2.9.3
+SQLAlchemy==1.4.32
+Werkzeug==2.0.3
