@@ -33,17 +33,17 @@ def index_html():
 @app.route('/patients_dashboard/<username>', methods=('GET', 'POST'))
 def patients_dashboard(username):
     if request.method == 'POST':
-        appointmentDate = request.form['date']
+        appointmentDate = str(request.form['date'])
         appointmentPrefferedtime = str(request.form['time'])
         symptoms = request.form['symptom']
         
         print("{} {}".format(appointmentDate, symptoms))
 
         patid = get_patient_id(username)
-        appointment = get_best_doctor(symptoms, appointmentPrefferedtime)
+        appointment = get_best_doctor([symptoms], str(appointmentPrefferedtime))
         docid = appointment[0]
         endtime = appointment[1][1]
-        starttime = appointment[1][0]
+        starttime = str(appointment[1][0])
         insert_appointment(appointmentDate, starttime, patid, docid)
     symptoms = get_all_symptoms()
     details = get_patient_details(username)
