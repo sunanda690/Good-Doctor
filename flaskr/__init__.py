@@ -122,7 +122,7 @@ def doctors_signin():
     else:
         username = request.form['username']
         password = request.form['password']
-        print("{} {}", username, password, search_doctor(username, password))
+        # print(username, password, search_doctor(username, password))
         if search_doctor(username, password):
             return redirect(url_for("doctor.doctors_dashboard", username=username))
 

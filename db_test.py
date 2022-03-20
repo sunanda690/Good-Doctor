@@ -20,12 +20,14 @@ if __name__ == '__main__':
     insert_specialization("gastroenterology")
     insert_specialization("ENT")
     insert_specialization("Eye")
+    insert_specialization("Ortho")
+    insert_specialization("Physician")
+    insert_specialization("Neurology")
+    insert_specialization("Surgeon")
     print(get_spec_id("ENT"))
+    print(get_spec_id("gastroenterology"))
 
     create_specialized_table()
-    insert_specialized(2,1)
-    insert_specialized(2,2)
-    insert_specialized(2,3)
 
     create_qualification_table()
     insert_qualification('MBBS')
@@ -96,7 +98,7 @@ if __name__ == '__main__':
 
     print(get_appointments(2))
 
-    print(get_best_doctor(['stomach ache', 'cold'], '11:30'))
+    # print(get_best_doctor(['stomach ache', 'cold'], '11:30'))
     print(get_all_symptoms())
 
     print(get_patient_details('abhi'))
@@ -109,3 +111,5 @@ if __name__ == '__main__':
     print((get_all_slots()))
 
     print(get_doctor_slots(1))
+
+    print(get_doctor_specs(1))

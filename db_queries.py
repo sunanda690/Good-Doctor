@@ -359,6 +359,34 @@ def get_doctor_slots(doctor_id):
 
     return slots
 
+
+def get_doctor_specs(doctor_id):
+    specs = []
+    conn = None
+    try:
+        params = config()
+        conn = psycopg2.connect(**params)
+        cur = conn.cursor()
+        sql = """
+        SELECT sn.speciality FROM specialized s
+        left join specialization sn on s.spec_id=sn.spec_id
+        where s.doctor_id=%s;
+         """
+        cur.execute(sql, (doctor_id,))
+
+        for i in range(cur.rowcount):
+            specs.append(cur.fetchone())    
+        
+        cur.close()
+
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+
+    return specs
+
 def get_all_slots():
     slots = []
     conn = None
@@ -381,7 +409,6 @@ def get_all_slots():
             conn.close()
 
     return slots
-
 
 
 def get_qual_id(qual_name):

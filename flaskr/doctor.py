@@ -31,13 +31,30 @@ def doctors_appointments(username,number):
 
 @bp.route('/about/<username>/<name>', methods=("GET", "POST"))
 def doctors_about(username, name):
+    details = get_doctor_details(username)
+    quals = get_doctor_qualifications(username)
+    specs = get_all_specs()
+    slots = get_all_slots()
+    docslots = get_doctor_slots(get_doctor_id(username))
+    docspecs = get_doctor_specs(get_doctor_id(username))
+
     if request.method=="POST":
         print(request.form)
         if "Specialization" in request.form:
-            specs = request.form['profiles']
-            doctor_id = get_doctor_id(username)
-            for spec in specs:
+            
+            docspecs = request.form.getlist("profiles")
+            # print(specs)
+            doctor_id = get_doctor_id(username)[0]
+            # print(doctor_id)
+            for spec in docspecs:
+                # print(spec, type(spec), get_spec_id(spec))
                 insert_specialized(get_spec_id(spec), doctor_id)
+
+            print(docspecs)
+
+            return render_template("doctors_about.html", username=username, name=name, details=details, quals=quals, specs=specs, docspecs=docspecs, slots=slots, docslots=docslots)
+
+
         elif "Qualification" in request.form:
             institute = request.form['institute']
             procurement_year = request.form['year']
@@ -45,6 +62,7 @@ def doctors_about(username, name):
             qual_id = get_qual_id(qualification)
             doctor_id = get_doctor_id(username)
             insert_qualified(qual_id, doctor_id, procurement_year, institute)
+        
         else:
             # Reviewed
             slots = eval(request.form['slots'])
@@ -52,12 +70,10 @@ def doctors_about(username, name):
             for slot in slots:
                 print(get_slot_id(slot))
                 insert_has_slot(get_slot_id(slot), get_doctor_id(username))
-    details = get_doctor_details(username)
-    quals = get_doctor_qualifications(username)
-    specs = get_all_specs()
-    slots = get_all_slots()
-    docslots = get_doctor_slots(get_doctor_id(username))
-    return render_template("doctors_about.html", username=username, name=name, details=details, quals=quals, specs=specs, slots=slots, docslots=docslots)
+    
+    if request.method=="GET":
+        
+        return render_template("doctors_about.html", username=username, name=name, details=details, quals=quals, specs=specs, docspecs=docspecs, slots=slots, docslots=docslots)
 
 @bp.route('/prescription/<number>', methods=("GET", "POST"))
 def doctors_pres(number):

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Health - Free HTML5 Bootstrap 4 Template by uicookies.com</title>
+  <title>The Best Doctor</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="Free HTML5 Website Template by uicookies.com" />
@@ -34,15 +34,15 @@
     
           <div class="collapse navbar-collapse" id="probootstrap-nav">
             <ul class="navbar-nav mr-auto">
-              <li class="nav-item active"><a href="{{url_for("doctor.doctors_dashboard", username=username)}}" class="nav-link pl-0">Dashboard</a></li>
-              <li class="nav-item"><a href="{{url_for("doctor.doctors_appointments", username=username, number=1)}}" class="nav-link">Appointments</a></li>
+              <li class="nav-item active"><a href="{{url_for('doctor.doctors_dashboard', username=username)}}" class="nav-link pl-0">Dashboard</a></li>
+              <li class="nav-item"><a href="{{url_for('doctor.doctors_appointments', username=username, number=1)}}" class="nav-link">Appointments</a></li>
               <li class="nav-item"><a href="contact.html" class="nav-link">Contact us</a></li>
               <!-- <li class="nav-item"><a href="signin.html" class="nav-link">Signin</a></li> -->
             </ul>
           </div>
           <div class="ml-auto">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item"><a href="{{url_for("doctors_signin")}}" class="nav-link pl-0">Signout</a></li>
+                <li class="nav-item"><a href="{{url_for('doctors_signin')}}" class="nav-link pl-0">Signout</a></li>
             </ul>
           </div>
         </div>
@@ -69,9 +69,9 @@
             <h2 class="h6">About</h2>
             <ul class="list-unstyled probootstrap-light mb-4">
                 {% if name=="Basics" %}
-                    <li class="active"><a href="{{url_for("doctor.doctors_about", name="Basics", username=username)}}">Basics</a></li>
+                    <li class="active"><a href="{{url_for('doctor.doctors_about', name='Basics', username=username)}}">Basics</a></li>
                 {% else %}
-                    <li><a href="{{url_for("doctor.doctors_about", name="Basics", username=username)}}">Basics</a></li>
+                    <li><a href="{{url_for('doctor.doctors_about', name='Basics', username=username)}}">Basics</a></li>
                 {% endif %}
 
                 {% if name=="Specialization" %}
@@ -123,7 +123,11 @@
                         <div class="card" style="margin-top:1rem">
                             <div class="input-group-prepend">
                                 <div style="padding-left: 1rem;">
-                                    <input type="checkbox" aria-label="Checkbox for following text input" name="profiles" value="{{spec}}" checked><span style="margin-left: 0.5rem;">{{spec}}</span><br\>
+                                  {% if spec in docspecs %}  
+                                  <input type="checkbox" aria-label="Checkbox for following text input" name="profiles" value="{{spec}}" checked><span style="margin-left: 0.5rem;">{{spec}}</span><br\>
+                                  {% else %}
+                                  <input type="checkbox" aria-label="Checkbox for following text input" name="profiles" value="{{spec}}" ><span style="margin-left: 0.5rem;">{{spec}}</span><br\>
+                                  {% endif %}
                                 </div>
                             </div>
                         </div>
