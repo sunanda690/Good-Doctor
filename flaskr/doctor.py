@@ -4,6 +4,7 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
 from werkzeug.security import check_password_hash, generate_password_hash
+from datetime import datetime
 from db_creation import * 
 from db_insertion import *
 from db_queries import *
@@ -77,11 +78,30 @@ def doctors_about(username, name):
         
         else:
             # Reviewed
-            slots = eval(request.form['slots'])
-            print(eval(slots))
-            for slot in slots:
-                print(get_slot_id(slot))
+            start = request.form['start_time']
+            end = request.form['end_time']
+
+            # print(start,end)
+            # print(docslots)
+            timeslot = (datetime.strptime(start, '%H:%M'), datetime.strptime(end, '%H:%M'))
+            
+            slot = (start,end)
+
+            if timeslot not in slots:
+                insert_slot(start, end)
+            
+            if timeslot not in docslots:
                 insert_has_slot(get_slot_id(slot), get_doctor_id(username))
+
+            # f = open('flaskr/logs.txt', 'w')
+            # slots = eval(slots)
+            # print(slots,type(slots))
+            # for slot in slots:
+            #     print(get_slot_id(slot))
+            #     insert_has_slot(get_slot_id(slot), get_doctor_id(username))
+            docslots = get_doctor_slots(docid)
+
+            return render_template("doctors_about.html", username=username, name=name, details=details, quals=quals, docquals=docquals, specs=specs, docspecs=docspecs, slots=slots, docslots=docslots)
     
     if request.method=="GET":
         

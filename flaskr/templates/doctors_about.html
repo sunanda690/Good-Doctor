@@ -197,7 +197,8 @@
             </form>
           </div>
           {% else %}
-          <div class="col-md-9 pl-md-5 pb-5 pl-0 probootstrap-inside">
+          
+          <!-- <div class="col-md-9 pl-md-5 pb-5 pl-0 probootstrap-inside">
             <h1 class="mt-4 mb-4">Slots</h1>
             <h3>Select slots when you are free:</h3>
             <form method="post" role="form" action="{{ url_for("doctor.doctors_about", name="Slots", username=username)}}">
@@ -218,6 +219,47 @@
                     </div>
                     {% endfor %}
                 </div>
+                <button type="submit" name="Slots" value="submit" class="btn btn-primary" style="margin-top:1rem">Save changes</button>
+            </form>
+          </div> -->
+          
+          <div class="col-md-9 pl-md-5 pb-5 pl-0 probootstrap-inside">
+            <h1 class="mt-4 mb-4">Slots</h1>
+            <h3>Add slot:</h3>
+            <form method="post" role="form" action="{{ url_for("doctor.doctors_about", name="Slots", username=username)}}">
+                <div class="row">
+                    {% for slot in docslots %}
+                    <div class="col-sm-6">
+                        <div class="card" style="margin-top:1rem">
+                            <div class="input-group-prepend">
+                                <div style="padding-left: 1rem;">
+                                   
+                                    <input type="checkbox" aria-label="Checkbox for following text input" name="slots" value="{{slot}}" checked><span style="margin-left: 0.5rem;">{{slot[0]}} - {{slot[1]}}</span><br\>
+                                 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <hr>
+                    <div class="col-sm-6">
+                      <div class="card" style="margin-top:1rem">
+                          <div class="input-group-prepend">
+                              <div style="padding-left: 1rem; padding-right: 1rem;">
+                                <div align="right">
+                                Start time:
+                                  <input type="time" aria-label="Checkbox for following text input" name="start_time" value="00:00">
+                                </div>
+                                <div align="right">
+                                End time:
+                                  <input type="time" aria-label="Checkbox for following text input" name="end_time" value="00:00">
+                                </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+                <hr>
                 <button type="submit" name="Slots" value="submit" class="btn btn-primary" style="margin-top:1rem">Save changes</button>
             </form>
           </div>
