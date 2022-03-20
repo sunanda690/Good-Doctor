@@ -31,37 +31,49 @@ def doctors_appointments(username,number):
 
 @bp.route('/about/<username>/<name>', methods=("GET", "POST"))
 def doctors_about(username, name):
+    docid = get_doctor_id(username)[0]
     details = get_doctor_details(username)
     quals = get_doctor_qualifications(username)
     specs = get_all_specs()
     slots = get_all_slots()
-    docslots = get_doctor_slots(get_doctor_id(username))
-    docspecs = get_doctor_specs(get_doctor_id(username))
+    docslots = get_doctor_slots(docid)
+    docspecs = get_doctor_specs(docid)
+    qual_det_list = get_doctor_qualifications(username)
+    docquals = []
+    for qual in qual_det_list:
+        docquals.append(qual[0])
 
     if request.method=="POST":
         print(request.form)
         if "Specialization" in request.form:
-            
-            docspecs = request.form.getlist("profiles")
+            doc_specs = request.form.getlist("profiles")
             # print(specs)
             doctor_id = get_doctor_id(username)[0]
-            # print(doctor_id)
-            for spec in docspecs:
-                # print(spec, type(spec), get_spec_id(spec))
-                insert_specialized(get_spec_id(spec), doctor_id)
-
             print(docspecs)
+            for spec in doc_specs:
+                # print(spec, type(spec), get_spec_id(spec))
+                if spec not in docspecs:
+                    insert_specialized(get_spec_id(spec), doctor_id)
+                    docspecs.append(spec)
 
-            return render_template("doctors_about.html", username=username, name=name, details=details, quals=quals, specs=specs, docspecs=docspecs, slots=slots, docslots=docslots)
+            print(doc_specs)
+
+            return render_template("doctors_about.html", username=username, name=name, details=details, quals=quals, docquals=docquals, specs=specs, docspecs=doc_specs, slots=slots, docslots=docslots)
 
 
         elif "Qualification" in request.form:
             institute = request.form['institute']
-            procurement_year = request.form['year']
-            qualification = request.form['profiles'][0]
-            qual_id = get_qual_id(qualification)
-            doctor_id = get_doctor_id(username)
-            insert_qualified(qual_id, doctor_id, procurement_year, institute)
+            procurement_year = request.form['year'][:4]
+            qualifications = request.form.getlist('profiles')
+            doctor_id = get_doctor_id(username)[0]
+            
+            for qual in qualifications:
+                qual_id = get_qual_id(qual)
+                if qual not in docquals:
+                    insert_qualified(qual_id, doctor_id, procurement_year, institute)
+                    docquals.append(qual)
+
+            return render_template("doctors_about.html", username=username, name=name, details=details, quals=quals, docquals=docquals, specs=specs, docspecs=docspecs, slots=slots, docslots=docslots)
         
         else:
             # Reviewed
@@ -73,7 +85,7 @@ def doctors_about(username, name):
     
     if request.method=="GET":
         
-        return render_template("doctors_about.html", username=username, name=name, details=details, quals=quals, specs=specs, docspecs=docspecs, slots=slots, docslots=docslots)
+        return render_template("doctors_about.html", username=username, name=name, details=details, quals=quals, docquals=docquals, specs=specs, docspecs=docspecs, slots=slots, docslots=docslots)
 
 @bp.route('/prescription/<number>', methods=("GET", "POST"))
 def doctors_pres(number):

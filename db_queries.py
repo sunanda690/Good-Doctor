@@ -375,7 +375,7 @@ def get_doctor_specs(doctor_id):
         cur.execute(sql, (doctor_id,))
 
         for i in range(cur.rowcount):
-            specs.append(cur.fetchone())    
+            specs.append(cur.fetchone()[0])    
         
         cur.close()
 
@@ -386,6 +386,7 @@ def get_doctor_specs(doctor_id):
             conn.close()
 
     return specs
+
 
 def get_all_slots():
     slots = []

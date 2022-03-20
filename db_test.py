@@ -32,11 +32,12 @@ if __name__ == '__main__':
     create_qualification_table()
     insert_qualification('MBBS')
     insert_qualification('MS')
+    insert_qualification('MD')
     print(get_qual_id('MS'))
 
     create_qualified_table()
-    insert_qualified(1,1,2020,'iitkgp')
-    insert_qualified(2,1,2021,'MIT')
+    # insert_qualified(1,1,2020,'iitkgp')
+    # insert_qualified(2,1,2021,'MIT')
 
     create_slots_table()
     insert_slot('03:00', '16:30')
@@ -59,17 +60,22 @@ if __name__ == '__main__':
     insert_prescription(get_patient_id('abhi'),get_doctor_id('A'))
 
     create_symptom_table()
-    insert_symptom('cough')
-    insert_symptom('cold')
-    insert_symptom('congestion')
-    insert_symptom('stomach ache')
-    insert_symptom('head ache')
-    insert_symptom('burns')
+    insert_symptom('Cough')
+    insert_symptom('Cold')
+    insert_symptom('Congestion')
+    insert_symptom('Stomach ache')
+    insert_symptom('Head ache')
+    insert_symptom('Burns')
+    # insert_symptom('Diarrhea')
+    # insert_symptom('Fatigue')
+    # insert_symptom('Muscle aches')
+    # insert_symptom('Conjunctivitis')
+
 
     create_has_symptom_table()
-    insert_has_symptom(1,get_symptom_id('stomach ache'))
-    insert_has_symptom(1,get_symptom_id('cold'))
-    insert_has_symptom(1,get_symptom_id('cough'))
+    insert_has_symptom(1,get_symptom_id('Stomach ache'))
+    insert_has_symptom(1,get_symptom_id('Cold'))
+    insert_has_symptom(1,get_symptom_id('Cough'))
 
     create_appointments_table()
     insert_appointment('3/15/2011', '12:33', 1, 1)
@@ -94,22 +100,3 @@ if __name__ == '__main__':
     create_payments_table()
     insert_payment(1020, 1)
     
-    print(get_history(1))
-
-    print(get_appointments(2))
-
-    # print(get_best_doctor(['stomach ache', 'cold'], '11:30'))
-    print(get_all_symptoms())
-
-    print(get_patient_details('abhi'))
-    print(get_doctor_details('A'))
-
-    print(get_doctor_qualifications('A'))
-
-    print(get_all_specs())
-
-    print((get_all_slots()))
-
-    print(get_doctor_slots(1))
-
-    print(get_doctor_specs(1))

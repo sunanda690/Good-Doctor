@@ -147,7 +147,11 @@
                         <div class="card" style="margin-top:1rem">
                             <div class="input-group-prepend">
                                 <div style="padding-left: 1rem;">
-                                    <input type="checkbox" aria-label="Checkbox for following text input" name="profiles" value="MBBS"><span style="margin-left: 0.5rem;">MBBS</span><br\>
+                                  {% if 'MBBS' in docquals %}  
+                                  <input type="checkbox" aria-label="Checkbox for following text input" name="profiles" value="MBBS" checked><span style="margin-left: 0.5rem;">MBBS</span><br\>
+                                  {% else %}
+                                  <input type="checkbox" aria-label="Checkbox for following text input" name="profiles" value="MBBS" ><span style="margin-left: 0.5rem;">MBBS</span><br\>
+                                  {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -156,7 +160,11 @@
                         <div class="card" style="margin-top:1rem">
                             <div class="input-group-prepend">
                                 <div style="padding-left: 1rem;">
-                                    <input type="checkbox" aria-label="Checkbox for following text input" name="profiles" value="MD"><span style="margin-left: 0.5rem;">MS</span><br\>
+                                  {% if 'MS' in docquals %}
+                                  <input type="checkbox" aria-label="Checkbox for following text input" name="profiles" value="MS" checked><span style="margin-left: 0.5rem;">MS</span><br\>
+                                  {% else %}
+                                  <input type="checkbox" aria-label="Checkbox for following text input" name="profiles" value="MS" ><span style="margin-left: 0.5rem;">MS</span><br\>
+                                  {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -165,7 +173,11 @@
                         <div class="card" style="margin-top:1rem">
                             <div class="input-group-prepend">
                                 <div style="padding-left: 1rem;">
-                                    <input type="checkbox" aria-label="Checkbox for following text input" name="profiles" value="MD"><span style="margin-left: 0.5rem;">MD</span><br\>
+                                  {% if 'MD' in docquals %}
+                                  <input type="checkbox" aria-label="Checkbox for following text input" name="profiles" value="MD" checked><span style="margin-left: 0.5rem;">MD</span><br\>
+                                  {% else %}
+                                  <input type="checkbox" aria-label="Checkbox for following text input" name="profiles" value="MD" ><span style="margin-left: 0.5rem;">MD</span><br\>
+                                  {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -177,7 +189,7 @@
                         <input type="text" class="form-control" id="institute" name="institute" placeholder="Name of Institute" style="color: #9495a4 !important;">
                     </div>
                     <div class="col-sm-6">
-                        <h5>Date of Procurement</h5>
+                        <h5>Year of Procurement</h5>
                         <input type="date" class="form-control" id="year" name="year" placeholder="01/01/2001" style="color: #9495a4 !important;">
                     </div>
                 </div>
