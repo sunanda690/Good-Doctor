@@ -6,7 +6,8 @@ from db_queries import *
 if __name__ == '__main__':
     create_patient_table()
     insert_patient("abhi", "Abhilash Datta", "abhi.com", "abcd", "760", "21")
-    insert_patient("rrohit", "Rohit Raj", "rrohit.com", "wxyz", "727", "21")
+    insert_patient("rrohit", "Rohit Raj", "rrohit.com", "wxyz", "727", "21")    
+    insert_patient("sunan", "Sunanda Mondal", "sripally.com", "efgh", "727", "21")
     print(search_patient("rrohit", "wxyz"))
 
     create_doctor_table()
@@ -78,8 +79,11 @@ if __name__ == '__main__':
 
     create_appointments_table()
     insert_appointment('3/15/2011', '12:33', 1, 1)
-    insert_appointment('3/25/2021', '15:33', 1, 2)
-    insert_appointment('3/24/2021', '17:33', 2, 2)
+    insert_appointment('3/25/2021', '15:33', 2, 1)
+    insert_appointment('3/24/2021', '17:33', 3, 1)
+    insert_appointment('3/15/2011', '11:33', 1, 2)
+    insert_appointment('3/25/2021', '14:33', 3, 2)
+    insert_appointment('3/24/2021', '19:33', 2, 2)
 
     create_history_table()
     insert_history(1,1)

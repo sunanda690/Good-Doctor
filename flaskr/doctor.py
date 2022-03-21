@@ -20,15 +20,24 @@ def doctors_dashboard(username):
 
 @bp.route('/appointments/<username>/<number>', methods=("GET", "POST"))
 def doctors_appointments(username,number):
-    if request.method=="POST":
-        num = int(request.form.keys()[0].split("#"))
-        if request.form["button#{}".format(num)] == "cancel":
-            render_template("doctors_appointments.html", number=1)
-        else:
-            redirect(url_for(".doctors_pres", number=num))
     aps = get_appointments(get_doctor_id(username))
-    print(aps)
-    return render_template("doctors_appointments.html", number=number, username=username, aps=aps)
+
+    if request.method=="POST":
+        button_key = 'button#'+str(number)
+        val = request.form[button_key]
+        print('val :',val)
+        
+        if val == "cancel":
+            aps.remove(aps[int(number)-1])
+            return render_template("doctors_appointments.html", number=0, username=username, aps=aps)
+        else:
+            aps.remove(aps[int(number)-1])
+            return redirect(url_for(".doctors_pres", number=int(number)-1))
+
+        # return render_template("doctors_appointments.html", number=int(number)-1, username=username, aps=aps)
+
+    if request.method=='GET':
+        return render_template("doctors_appointments.html", number=int(number)-1, username=username, aps=aps)
 
 @bp.route('/about/<username>/<name>', methods=("GET", "POST"))
 def doctors_about(username, name):
@@ -93,9 +102,6 @@ def doctors_about(username, name):
             if timeslot not in docslots:
                 insert_has_slot(get_slot_id(slot), get_doctor_id(username))
 
-            # f = open('flaskr/logs.txt', 'w')
-            # slots = eval(slots)
-            # print(slots,type(slots))
             # for slot in slots:
             #     print(get_slot_id(slot))
             #     insert_has_slot(get_slot_id(slot), get_doctor_id(username))

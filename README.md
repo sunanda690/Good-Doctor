@@ -3,7 +3,7 @@
 By Abhilash Datta, Rohit Raj & Sunanda Mandal
 <hr>
 
-### How to start postgresql server:
+### How to start postgresql server (Ubuntu 20.04):
 ```
 sudo service postgresql start
 sudo su postgres

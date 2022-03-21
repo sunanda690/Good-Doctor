@@ -518,7 +518,7 @@ def get_appointments(doctor_id):
         conn = psycopg2.connect(**params)
         cur = conn.cursor()
         sql = """
-        SELECT a.appointment_date, a.appointment_time, p.name FROM appointments a 
+        SELECT a.appointment_date, a.appointment_time, p.username, p.age, p.name FROM appointments a 
         left join patient p on p.patient_id=a.patient_id 
         where a.doctor_id=%s;
         """
