@@ -456,6 +456,52 @@ def get_symptom_id(symptom):
     return symp_id
 
 
+def get_symptom_name(id):
+    symp = -1
+    conn = None
+    try:
+        params = config()
+        conn = psycopg2.connect(**params)
+        cur = conn.cursor()
+        sql = "SELECT name FROM symptom where symptom_id=%s;"
+        cur.execute(sql, (id,))
+        symp = cur.fetchone()[0]      
+        
+        cur.close()
+
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+
+    return symp
+
+
+def get_patient_symptoms(patient_id):
+    symps = []
+    conn = None
+    try:
+        params = config()
+        conn = psycopg2.connect(**params)
+        cur = conn.cursor()
+        sql = "SELECT symptom_id FROM has_symptom where patient_id=%s;"
+        cur.execute(sql, (patient_id,))
+        
+        for _ in range(cur.rowcount):
+            symps.append(cur.fetchone()[0])
+        
+        cur.close()
+
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+
+    return symps
+
+
 def get_all_symptoms():
     symptoms = []
     conn = None
@@ -611,9 +657,9 @@ def get_best_doctor(symptoms_list, pref_time):
                 major_problem = s
 
         speciality = spec[major_problem]
-        print(speciality)
+        # print(speciality)
         spec_id = get_spec_id(speciality)
-        print(spec_id)
+        # print(spec_id)
         doc_ids = []
 
         sql = """
@@ -624,7 +670,7 @@ def get_best_doctor(symptoms_list, pref_time):
         cur.execute(sql, (spec_id, ))
 
         for i in range(cur.rowcount):
-            doc_ids.append(cur.fetchone())
+            doc_ids.append(cur.fetchone()[0])
                
         print('docids: ', doc_ids)
         

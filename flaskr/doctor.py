@@ -27,18 +27,18 @@ def doctors_appointments(username,number):
         button_key = 'button#'+str(number)
         val = request.form[button_key]
         delete_appointment(int(number))
-        print('deleted',number)
+
         if val == "cancel":
             aps.remove(aps[int(number)-1])
             return render_template("doctors_appointments.html", number=0, username=username, aps=aps)
         else:
-            aps.remove(aps[int(number)-1])
-            return redirect(url_for(".doctors_pres", number=int(number)-1))
+            return redirect(url_for(".doctors_pres", username=username, number=int(number)))
 
         # return render_template("doctors_appointments.html", number=int(number)-1, username=username, aps=aps)
 
     if request.method=='GET':
         return render_template("doctors_appointments.html", number=int(number)-1, username=username, aps=aps)
+
 
 @bp.route('/about/<username>/<name>', methods=("GET", "POST"))
 def doctors_about(username, name):
@@ -110,10 +110,17 @@ def doctors_about(username, name):
 
             return render_template("doctors_about.html", username=username, name=name, details=details, quals=quals, docquals=docquals, specs=specs, docspecs=docspecs, slots=slots, docslots=docslots)
     
-    if request.method=="GET":
-        
+    if request.method=="GET":        
         return render_template("doctors_about.html", username=username, name=name, details=details, quals=quals, docquals=docquals, specs=specs, docspecs=docspecs, slots=slots, docslots=docslots)
 
-@bp.route('/prescription/<number>', methods=("GET", "POST"))
-def doctors_pres(number):
-    return render_template("prescription.html", number=number)
+
+@bp.route('/prescription/<username>/<number>', methods=("GET", "POST"))
+def doctors_pres(username, number):
+    aps = get_appointments(get_doctor_id(username))
+    symptom_ids = get_patient_symptoms(get_patient_id(aps[int(number)][2]))
+    symptoms = []
+    for i in symptom_ids:
+        symptoms.append(get_symptom_name(i))
+        
+    print('symps = ',symptoms)
+    return render_template("prescription.html", username=username, number=int(number), aps=aps, symptoms=symptoms)

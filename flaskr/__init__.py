@@ -35,16 +35,24 @@ def patients_dashboard(username):
     if request.method == 'POST':
         appointmentDate = str(request.form['date'])
         appointmentPrefferedtime = str(request.form['time'])
-        symptoms = request.form['symptom']
-        
+        symptoms = request.form.getlist('symptom')
+        patid = get_patient_id(username)
+
+        init_symps = get_patient_symptoms(patid[0])
+
+        for symp in symptoms:
+            if get_symptom_id(symp) not in init_symps:
+                insert_has_symptom(patid[0], get_symptom_id(symp))
+
         print(appointmentDate, symptoms)
 
-        patid = get_patient_id(username)
-        appointment = get_best_doctor([symptoms], str(appointmentPrefferedtime))
+        
+        appointment = get_best_doctor(symptoms, str(appointmentPrefferedtime))
         docid = appointment[0]
         endtime = appointment[1][1]
         starttime = str(appointment[1][0])
         insert_appointment(appointmentDate, starttime, patid, docid)
+        
     symptoms = get_all_symptoms()
     details = get_patient_details(username)
     return render_template("patients_dashboard.html", symptoms=symptoms, username=username, details=details)
