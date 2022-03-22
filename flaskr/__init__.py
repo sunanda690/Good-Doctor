@@ -37,7 +37,7 @@ def patients_dashboard(username):
         appointmentPrefferedtime = str(request.form['time'])
         symptoms = request.form['symptom']
         
-        print("{} {}".format(appointmentDate, symptoms))
+        print(appointmentDate, symptoms)
 
         patid = get_patient_id(username)
         appointment = get_best_doctor([symptoms], str(appointmentPrefferedtime))

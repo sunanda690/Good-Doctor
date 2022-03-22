@@ -34,11 +34,12 @@
 
       <div class="collapse navbar-collapse" id="probootstrap-nav">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active"><a href="{{url_for("patients_dashboard", username=username)}}" class="nav-link pl-0">Dashboard</a></li>
+          <li class="nav-item"><a href="{{url_for('patients_dashboard', username=username)}}" class="nav-link pl-0">Dashboard</a></li>
+          <li class="nav-item active"><a href="{{url_for('patients_profile', username=username, name='Basics', details=details)}}" class="nav-link">Profile</a></li>
         </ul>
         <div class="ml-auto">
           <ul class="navbar-nav mr-auto">
-              <li class="nav-item"><a href="{{url_for("patients_signin")}}" class="nav-link pl-0">Signout</a></li>
+              <li class="nav-item"><a href="{{url_for('patients_signin')}}" class="nav-link pl-0">Signout</a></li>
           </ul>
         </div>
       </div>

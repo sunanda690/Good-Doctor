@@ -34,12 +34,12 @@
 
       <div class="collapse navbar-collapse" id="probootstrap-nav">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active"><a href="{{url_for("patients_dashboard", username=username)}}" class="nav-link pl-0">Dashboard</a></li>
-          <li class="nav-item"><a href="{{url_for("patients_profile", username=username, name="Basics", details=details)}}" class="nav-link">Profile</a></li>
+          <li class="nav-item active"><a href="{{url_for('patients_dashboard', username=username)}}" class="nav-link pl-0">Dashboard</a></li>
+          <li class="nav-item"><a href="{{url_for('patients_profile', username=username, name='Basics', details=details)}}" class="nav-link">Profile</a></li>
         </ul>
         <div class="ml-auto">
           <ul class="navbar-nav mr-auto">
-              <li class="nav-item"><a href="{{url_for("patients_signin")}}" class="nav-link pl-0">Signout</a></li>
+              <li class="nav-item"><a href="{{url_for('patients_signin')}}" class="nav-link pl-0">Signout</a></li>
           </ul>
         </div>
       </div>
@@ -83,14 +83,15 @@
         
         <div id="appointment" class="col-md-6 p-md-5 p-2 probootstrap-aside-stretch-right ">
           <h2 class="h1 text-white">Make an Appointment</h2>
-          <form action="{{url_for("patients_dashboard", username=username)}}" class="probootstrap-form-appointment" method="post" role="form">
+          <form action="{{url_for('patients_dashboard', username=username)}}" class="probootstrap-form-appointment" method="post" role="form">
             <div class="form-group">
               <input type="text" id="probootstrap-date" class="form-control"  name="date" placeholder="Date of appointment">
             </div>
             <div class="form-group">
               <input type="time" id="probootstrap-time" class="form-control" name="time">
             </div>
-            <p>Select symptoms</p>
+            <br>
+            <h2>Select symptoms</h2>
             <div class="form-group">
               {% for symptom in symptoms %}
               <div class="form-check">
@@ -101,6 +102,7 @@
               </div>
               {% endfor %}
             </div>
+            <br>
             <div class="form-group">
               <input type="submit" value="Submit Form" class="btn btn-secondary" name="submit">
             </div>

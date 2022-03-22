@@ -573,46 +573,47 @@ def get_best_doctor(symptoms_list, pref_time):
         cur = conn.cursor()
 
         priority = dict()
-        priority['chest pain'] = 100
-        priority['breathing trouble'] = 90
-        priority['burns'] = 80
-        priority['fracture'] = 70
-        priority['urinary problems'] = 60
-        priority['diabetes'] = 50
-        priority['skin rashes'] = 40
-        priority['fever'] = 35
-        priority['head ache'] = 30
-        priority['stomach ache'] = 20
-        priority['throat infection'] = 19
-        priority['nose infection'] = 17
-        priority['ear infection'] = 15
-        priority['cold'] = 10
-        priority['tiredness'] = 9
+        priority['Chest pain'] = 100
+        priority['Breathing trouble'] = 90
+        priority['Burns'] = 80
+        priority['Fracture'] = 70
+        priority['Urinary problems'] = 60
+        priority['Diabetes'] = 50
+        priority['Skin rashes'] = 40
+        priority['Fever'] = 35
+        priority['Head ache'] = 30
+        priority['Stomach ache'] = 20
+        priority['Throat infection'] = 19
+        priority['Nose infection'] = 17
+        priority['Ear infection'] = 15
+        priority['Cold'] = 10
+        priority['Tiredness'] = 9
 
         spec = dict()
-        spec['chest pain'] = 'cardiology'
-        spec['breathing trouble'] = 'pulmonology'
-        spec['burns'] = 'surgury'
-        spec['fracture'] = 'orthopedia'
-        spec['urinary problems'] = 'urology'
-        spec['diabetes'] = 'endocrinology'
-        spec['skin rashes'] = 'dermetalogy'
-        spec['head ache'] = 'neurology'
-        spec['stomach ache'] = 'gastroenterology'
-        spec['throat infection'] = 'ENT'
-        spec['nose infection'] = 'ENT'
-        spec['ear infection'] = 'ENT'
-        spec['cold'] = 'physician'
+        spec['Chest pain'] = 'Cardiology'
+        spec['Breathing trouble'] = 'Pulmonology'
+        spec['Burns'] = 'Surgury'
+        spec['Fracture'] = 'Orthopedia'
+        spec['Urinary problems'] = 'Urology'
+        spec['Diabetes'] = 'Endocrinology'
+        spec['Skin rashes'] = 'Dermetalogy'
+        spec['Head ache'] = 'Neurology'
+        spec['Stomach ache'] = 'Gastroenterology'
+        spec['Throat infection'] = 'ENT'
+        spec['Nose infection'] = 'ENT'
+        spec['Ear infection'] = 'ENT'
+        spec['Cold'] = 'Physician'
 
-        major_problem = 'cold'
+        major_problem = 'Cold'
 
         for s in symptoms_list:
             if priority[s] > priority[major_problem]:
                 major_problem = s
 
         speciality = spec[major_problem]
-        # print(speciality)
+        print(speciality)
         spec_id = get_spec_id(speciality)
+        print(spec_id)
         doc_ids = []
 
         sql = """
@@ -625,6 +626,8 @@ def get_best_doctor(symptoms_list, pref_time):
         for i in range(cur.rowcount):
             doc_ids.append(cur.fetchone())
                
+        print('docids: ', doc_ids)
+        
         min_slots = []
 
         for docid in doc_ids:
