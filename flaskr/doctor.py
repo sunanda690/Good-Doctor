@@ -8,6 +8,7 @@ from datetime import datetime
 from db_creation import * 
 from db_insertion import *
 from db_queries import *
+from db_deletes import *
 
 
 bp = Blueprint('doctor', __name__, url_prefix='/doctor')
@@ -25,8 +26,8 @@ def doctors_appointments(username,number):
     if request.method=="POST":
         button_key = 'button#'+str(number)
         val = request.form[button_key]
-        print('val :',val)
-        
+        delete_appointment(int(number))
+        print('deleted',number)
         if val == "cancel":
             aps.remove(aps[int(number)-1])
             return render_template("doctors_appointments.html", number=0, username=username, aps=aps)

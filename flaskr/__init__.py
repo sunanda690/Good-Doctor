@@ -70,6 +70,22 @@ def patients_signup():
         return redirect(url_for("patients_signin"))
 
 
+@app.route('/departments_pediatrics', methods=('GET', 'POST'))
+def departments_pediatrics():
+    if request.method == 'GET':
+        return render_template("departments_pediatrics.html")
+
+@app.route('/departments_psychiatrics', methods=('GET', 'POST'))
+def departments_psychiatrics():
+    if request.method == 'GET':
+        return render_template("departments_psychiatrics.html")
+
+@app.route('/departments_neuro', methods=('GET', 'POST'))
+def departments_neuro():
+    if request.method == 'GET':
+        return render_template("departments_neuro.html")
+
+
 @app.route('/doctors_signup.html', methods=('GET', 'POST'))
 def doctors_signup():
     if request.method == 'GET':

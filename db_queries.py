@@ -539,6 +539,28 @@ def get_appointments(doctor_id):
     return appts  
 
 
+def get_app_id(app_date, app_time, pid, did):
+    app_id = -1
+    conn = None
+    try:
+        params = config()
+        conn = psycopg2.connect(**params)
+        cur = conn.cursor()
+        sql = "SELECT appointment_id FROM appointments where appointment_date=%s and appointment_time=%s and patient_id=%s and doctor_id=%s;"
+        cur.execute(sql, (app_date, app_time, pid, did))
+        app_id = cur.fetchone()[0]      
+        
+        cur.close()
+
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+
+    return app_id
+
+
 def get_best_doctor(symptoms_list, pref_time):
     conn = None
     best_doc_id = -1

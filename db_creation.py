@@ -454,7 +454,7 @@ def create_history_table():
         """
         CREATE TABLE history (
             history_id SERIAL PRIMARY KEY,
-            appointment_id INTEGER NOT NULL,
+            appointment_id INTEGER NOT NULL UNIQUE,
             patient_id INTEGER NOT NULL,
             FOREIGN KEY(patient_id) references patient,
             FOREIGN KEY(appointment_id) references appointments
